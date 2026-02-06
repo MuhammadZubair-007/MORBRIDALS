@@ -111,6 +111,10 @@ export default function HomePage() {
   const [shopCategories, setShopCategories] = useState<any[]>([])
   const [secondHeroSlides, setSecondHeroSlides] = useState<any[]>([])
   const [instagramPosts, setInstagramPosts] = useState<any[]>([])
+  const heroTouchStartX = useRef<number | null>(null)
+  const heroTouchDeltaX = useRef(0)
+  const hero2TouchStartX = useRef<number | null>(null)
+  const hero2TouchDeltaX = useRef(0)
 
   // Scroll animation refs
   const categoryRef = useScrollAnimation({ delay: 0, threshold: 0.1 })
@@ -366,13 +370,42 @@ export default function HomePage() {
       <div className="h-40 md:h-48"></div>
 
       {/* Hero Carousel */}
-      <section className="relative h-[300px] md:h-[420px] lg:h-[600px] overflow-hidden page-load-fade-in">
+      <section
+        className="relative h-[360px] sm:h-[420px] md:h-[520px] lg:h-[640px] overflow-hidden page-load-fade-in touch-pan-y select-none"
+        onTouchStart={(e) => {
+          if (heroSlides.length === 0) return
+          heroTouchStartX.current = e.touches[0]?.clientX ?? null
+          heroTouchDeltaX.current = 0
+        }}
+        onTouchMove={(e) => {
+          if (heroTouchStartX.current === null) return
+          heroTouchDeltaX.current = (e.touches[0]?.clientX ?? 0) - heroTouchStartX.current
+        }}
+        onTouchEnd={() => {
+          if (heroTouchStartX.current === null || heroSlides.length === 0) return
+          const delta = heroTouchDeltaX.current
+          const threshold = 50
+          if (Math.abs(delta) > threshold) {
+            if (delta > 0) {
+              setHeroSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length)
+            } else {
+              setHeroSlide((prev) => (prev + 1) % heroSlides.length)
+            }
+          }
+          heroTouchStartX.current = null
+          heroTouchDeltaX.current = 0
+        }}
+        onTouchCancel={() => {
+          heroTouchStartX.current = null
+          heroTouchDeltaX.current = 0
+        }}
+      >
         <div
           className="flex transition-transform duration-700"
           style={{ transform: `translateX(-${heroSlide * 100}%)` }}
         >
           {heroSlides.map((slide, idx) => (
-            <div key={idx} className="min-w-full h-[300px] md:h-[420px] lg:h-[600px] relative">
+            <div key={idx} className="min-w-full h-[360px] sm:h-[420px] md:h-[520px] lg:h-[640px] relative">
               <Image
                 src={slide.image || "/placeholder.svg"}
                 alt={slide.title}
@@ -382,10 +415,10 @@ export default function HomePage() {
               />
               <div className="absolute inset-0 bg-black/30"></div>
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center text-white px-6 max-w-4xl page-load-slide-down">
-                  <h1 className="text-5xl lg:text-7xl font-bold mb-6 drop-shadow-lg font-serif">{slide.title}</h1>
-                  <p className="text-xl mb-8 drop-shadow-lg">{slide.description}</p>
-                  <button className="bg-teal-600 hover:bg-teal-700 text-white px-8 py-4 rounded-full text-lg font-medium transition shadow-xl">
+                <div className="text-center text-white px-5 sm:px-6 max-w-4xl page-load-slide-down">
+                  <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 sm:mb-6 drop-shadow-lg font-serif">{slide.title}</h1>
+                  <p className="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 drop-shadow-lg">{slide.description}</p>
+                  <button className="bg-teal-600 hover:bg-teal-700 text-white px-6 py-3 sm:px-8 sm:py-4 rounded-full text-base sm:text-lg font-medium transition shadow-xl">
                     {slide.button}
                   </button>
                 </div>
@@ -394,18 +427,20 @@ export default function HomePage() {
           ))}
         </div>
         <button
-          onClick={() => setHeroSlide((heroSlide - 1 + 4) % 4)}
-          className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full w-12 h-12 flex items-center justify-center transition-all duration-300 z-10"
+          onClick={() => setHeroSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length)}
+          disabled={heroSlides.length === 0}
+          className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-all duration-300 z-10 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <i className="fas fa-chevron-left text-xl"></i>
         </button>
         <button
           onClick={() => setHeroSlide((heroSlide + 1) % heroSlides.length)}
-          className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full w-12 h-12 flex items-center justify-center transition-all duration-300 z-10"
+          disabled={heroSlides.length === 0}
+          className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center transition-all duration-300 z-10 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <i className="fas fa-chevron-right text-xl"></i>
         </button>
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+        <div className="absolute bottom-5 sm:bottom-8 left-1/2 -translate-x-1/2 flex gap-2 z-10">
           {Array.from({ length: heroSlides.length }).map((_, i) => (
             <button
               key={i}
@@ -417,7 +452,7 @@ export default function HomePage() {
       </section>
 
       {/* Brands Scrolling Section */}
-      <section className="bg-white py-8 overflow-hidden">
+      <section className="bg-white py-6 sm:py-8 overflow-hidden">
         <div 
           className="flex animate-scroll whitespace-nowrap"
           style={{ animationPlayState: isBrandScrollHovered ? 'paused' : 'running' }}
@@ -442,7 +477,7 @@ export default function HomePage() {
           ].map((brand, idx) => (
             <div
               key={idx}
-              className="inline-flex items-center justify-center px-12 text-gray-800 font-serif text-2xl font-semibold tracking-wider cursor-pointer group transition-all duration-300 hover:text-teal-600 hover:scale-105"
+              className="inline-flex items-center justify-center px-6 sm:px-10 md:px-12 text-gray-800 font-serif text-lg sm:text-xl md:text-2xl font-semibold tracking-wider cursor-pointer group transition-all duration-300 hover:text-teal-600 hover:scale-105"
             >
               {brand}
             </div>
@@ -451,13 +486,13 @@ export default function HomePage() {
       </section>
 
       {/* Shop by Category */}
-      <section className="parallax-section py-16 px-6 lg:px-12" ref={categoryRef}>
+      <section className="parallax-section py-12 sm:py-16 px-5 sm:px-6 lg:px-12" ref={categoryRef}>
         <div className="container mx-auto">
-          <h2 className="text-4xl font-bold text-left mb-12 text-black font-serif scroll-animate slide-up" style={{ animationDelay: '0s' }}>Shop by Category</h2>
-          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6" ref={trendingContainerRef}>
+          <h2 className="text-3xl sm:text-4xl font-bold text-left mb-8 sm:mb-12 text-black font-serif scroll-animate slide-up" style={{ animationDelay: '0s' }}>Shop by Category</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6" ref={trendingContainerRef}>
             {shopCategories.map((category, idx) => (
               <Link key={idx} href={`/category?cat=${category.slug}`}>
-                <div className="category-card group relative h-80 rounded-[12px] overflow-hidden scroll-animate slide-up" data-scroll-animate>
+                <div className="category-card group relative h-56 sm:h-64 md:h-72 lg:h-80 rounded-[12px] overflow-hidden scroll-animate slide-up" data-scroll-animate>
                   <Image
                     src={category.image || "/placeholder.svg"}
                     alt={category.name}
@@ -465,7 +500,7 @@ export default function HomePage() {
                     className="object-cover"
                   />
                   <div className="absolute inset-0 flex items-center justify-center z-10">
-                    <h3 className="text-white text-2xl font-bold font-serif">{category.name}</h3>
+                    <h3 className="text-white text-xl sm:text-2xl font-bold font-serif">{category.name}</h3>
                   </div>
                 </div>
               </Link>
@@ -475,31 +510,60 @@ export default function HomePage() {
       </section>
 
       {/* Second Hero Carousel */}
-      <section className="py-16" ref={hero2Ref}>
-        <div className="relative h-[500px] overflow-hidden scroll-animate slide-up">
+      <section className="py-12 sm:py-16" ref={hero2Ref}>
+        <div
+          className="relative min-h-[520px] sm:min-h-[560px] md:min-h-[500px] overflow-hidden scroll-animate slide-up touch-pan-y select-none"
+          onTouchStart={(e) => {
+            if (secondHeroSlides.length === 0) return
+            hero2TouchStartX.current = e.touches[0]?.clientX ?? null
+            hero2TouchDeltaX.current = 0
+          }}
+          onTouchMove={(e) => {
+            if (hero2TouchStartX.current === null) return
+            hero2TouchDeltaX.current = (e.touches[0]?.clientX ?? 0) - hero2TouchStartX.current
+          }}
+          onTouchEnd={() => {
+            if (hero2TouchStartX.current === null || secondHeroSlides.length === 0) return
+            const delta = hero2TouchDeltaX.current
+            const threshold = 50
+            if (Math.abs(delta) > threshold) {
+              if (delta > 0) {
+                setHero2Slide((prev) => (prev - 1 + secondHeroSlides.length) % secondHeroSlides.length)
+              } else {
+                setHero2Slide((prev) => (prev + 1) % secondHeroSlides.length)
+              }
+            }
+            hero2TouchStartX.current = null
+            hero2TouchDeltaX.current = 0
+          }}
+          onTouchCancel={() => {
+            hero2TouchStartX.current = null
+            hero2TouchDeltaX.current = 0
+          }}
+        >
           <div
             className="flex transition-transform duration-700"
             style={{ transform: `translateX(-${hero2Slide * 100}%)` }}
           >
             {secondHeroSlides.map((item, idx) => (
-              <div key={idx} className="min-w-full h-[500px] flex items-center">
-                <div className="container mx-auto px-6 grid md:grid-cols-2 gap-8 items-center">
+              <div key={idx} className="min-w-full min-h-[520px] sm:min-h-[560px] md:min-h-[500px] flex items-center">
+                <div className="container mx-auto px-5 sm:px-6 grid md:grid-cols-2 gap-6 sm:gap-8 items-center">
                   {idx % 2 === 0 ? (
                     <>
                       <div>
-                        <h2 className="text-5xl font-bold mb-6 text-[#0a2463] font-serif">{item.title}</h2>
-                        <p className="text-xl text-gray-600 mb-8">{item.subtitle}</p>
+                        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 text-[#0a2463] font-serif">{item.title}</h2>
+                        <p className="text-base sm:text-lg md:text-xl text-gray-600 mb-6 sm:mb-8">{item.subtitle}</p>
                         {item.href ? (
-                          <Link href={item.href} className="bg-teal-600 hover:bg-teal-700 text-white px-8 py-4 rounded-full text-lg font-medium transition inline-block">
+                          <Link href={item.href} className="bg-teal-600 hover:bg-teal-700 text-white px-6 py-3 sm:px-8 sm:py-4 rounded-full text-base sm:text-lg font-medium transition inline-block">
                             Shop Now
                           </Link>
                         ) : (
-                          <button className="bg-teal-600 hover:bg-teal-700 text-white px-8 py-4 rounded-full text-lg font-medium transition-all duration-300">
+                          <button className="bg-teal-600 hover:bg-teal-700 text-white px-6 py-3 sm:px-8 sm:py-4 rounded-full text-base sm:text-lg font-medium transition-all duration-300">
                             Shop Now
                           </button>
                         )}
                       </div>
-                      <div className="relative h-96">
+                      <div className="relative h-64 sm:h-80 md:h-96">
                         <Image
                           src={item.image || "/placeholder.svg"}
                           alt={item.title}
@@ -510,7 +574,7 @@ export default function HomePage() {
                     </>
                   ) : (
                     <>
-                      <div className="relative h-96">
+                      <div className="relative h-64 sm:h-80 md:h-96">
                         <Image
                           src={item.image || "/placeholder.svg"}
                           alt={item.title}
@@ -519,14 +583,14 @@ export default function HomePage() {
                         />
                       </div>
                       <div>
-                        <h2 className="text-5xl font-bold mb-6 text-[#0a2463] font-serif">{item.title}</h2>
-                        <p className="text-xl text-gray-600 mb-8">{item.subtitle}</p>
+                        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 text-[#0a2463] font-serif">{item.title}</h2>
+                        <p className="text-base sm:text-lg md:text-xl text-gray-600 mb-6 sm:mb-8">{item.subtitle}</p>
                         {item.href ? (
-                          <Link href={item.href} className="bg-teal-600 hover:bg-teal-700 text-white px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 inline-block\">
+                          <Link href={item.href} className="bg-teal-600 hover:bg-teal-700 text-white px-6 py-3 sm:px-8 sm:py-4 rounded-full text-base sm:text-lg font-medium transition-all duration-300 inline-block">
                             Shop Now
                           </Link>
                         ) : (
-                          <button className="bg-teal-600 hover:bg-teal-700 text-white px-8 py-4 rounded-full text-lg font-medium transition-all duration-300">
+                          <button className="bg-teal-600 hover:bg-teal-700 text-white px-6 py-3 sm:px-8 sm:py-4 rounded-full text-base sm:text-lg font-medium transition-all duration-300">
                             Shop Now
                           </button>
                         )}
@@ -542,10 +606,10 @@ export default function HomePage() {
 
       {/* Trending Now Section */}
       {/* Trending Now Section */}
-      <section className="py-16 px-6 lg:px-12 bg-gradient-to-br from-[#e6f7f5] to-white" ref={trendingRef}>
+      <section className="py-12 sm:py-16 px-5 sm:px-6 lg:px-12 bg-gradient-to-br from-[#e6f7f5] to-white" ref={trendingRef}>
         <div className="container mx-auto">
-          <h2 className="text-4xl font-bold text-left mb-12 text-black font-serif scroll-animate slide-up" style={{ animationDelay: '0.1s' }}>Trending Now</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8" ref={trendingContainerRef}>
+          <h2 className="text-3xl sm:text-4xl font-bold text-left mb-8 sm:mb-12 text-black font-serif scroll-animate slide-up" style={{ animationDelay: '0.1s' }}>Trending Now</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8" ref={trendingContainerRef}>
             {trendingProducts.length === 0 ? (
               // Fallback to hardcoded products if no products in database
               [
@@ -576,7 +640,7 @@ export default function HomePage() {
               ].map((product) => (
                 <div key={product._id} className="product-card bg-white border border-gray-100 rounded-2xl overflow-hidden flex flex-col">
                   <Link href={`/category`}>
-                    <div className="relative h-96 overflow-hidden">
+                    <div className="relative h-72 sm:h-80 md:h-96 overflow-hidden">
                       <Image
                         src={product.mainImage || "/placeholder.svg"}
                         alt={product.name}
@@ -628,7 +692,7 @@ export default function HomePage() {
                 return (
                   <div key={product._id} className="product-card bg-white border border-gray-100 rounded-2xl overflow-hidden flex flex-col" data-product-card>
                     <Link href={`/product?id=${productLinkId}`}>
-                      <div className="relative h-96 overflow-hidden">
+                      <div className="relative h-72 sm:h-80 md:h-96 overflow-hidden">
                         <Image
                           src={productImage}
                           alt={product.name}
@@ -689,13 +753,13 @@ export default function HomePage() {
       </section>
 
       {/* Shop Our Instagram */}
-      <section className="py-16 px-6 lg:px-12 bg-gradient-to-br from-teal-50 to-blue-50" ref={instagramRef}>
+      <section className="py-12 sm:py-16 px-5 sm:px-6 lg:px-12 bg-gradient-to-br from-teal-50 to-blue-50" ref={instagramRef}>
         <div className="container mx-auto">
-          <h2 className="text-4xl font-bold text-left mb-4 text-black font-serif scroll-animate slide-up" style={{ animationDelay: '0.2s' }}>Shop Our Instagram</h2>
-          <p className="text-left text-gray-600 mb-12 scroll-animate slide-up" style={{ animationDelay: '0.3s' }}>Follow us @morbridals for daily inspiration</p>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4" ref={instagramContainerRef}>
+          <h2 className="text-3xl sm:text-4xl font-bold text-left mb-3 sm:mb-4 text-black font-serif scroll-animate slide-up" style={{ animationDelay: '0.2s' }}>Shop Our Instagram</h2>
+          <p className="text-left text-gray-600 mb-8 sm:mb-12 scroll-animate slide-up" style={{ animationDelay: '0.3s' }}>Follow us @morbridals for daily inspiration</p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4" ref={instagramContainerRef}>
             {instagramPosts.map((img, idx) => (
-              <a key={idx} href="https://www.instagram.com/morstyleedit/?igsh=MW4yZHM2aTk4Ynl4aA%3D%3D#" target="_blank" rel="noopener noreferrer" className="product-card relative h-72 rounded-lg overflow-hidden">
+              <a key={idx} href="https://www.instagram.com/morstyleedit/?igsh=MW4yZHM2aTk4Ynl4aA%3D%3D#" target="_blank" rel="noopener noreferrer" className="product-card relative h-44 sm:h-56 md:h-72 rounded-lg overflow-hidden">
                 <Image
                   src={img || "/placeholder.svg"}
                   alt={`Instagram ${idx + 1}`}
