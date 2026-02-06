@@ -916,7 +916,10 @@ export function ProductPageContent() {
         {relatedProducts.length > 0 && (
           <div className={`${product ? "mt-16" : ""}`} ref={relatedProductsRef}>
             <h2 className="text-3xl font-bold mb-8 scroll-animate slide-up">Related Products</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8" ref={relatedProductsContainerRef}>
+            <div
+              className="flex gap-4 sm:gap-6 overflow-x-auto pb-4 scroll-smooth snap-x snap-mandatory"
+              ref={relatedProductsContainerRef}
+            >
               {relatedProducts.map((item) => {
                 const rating = Math.max(0, Math.min(5, item.rating ?? 0))
                 const reviewsCount = item.reviewsCount ?? 0
@@ -926,7 +929,7 @@ export function ProductPageContent() {
                 return (
                   <div
                     key={item._id}
-                    className="product-card group bg-white border border-gray-100 rounded-2xl overflow-hidden flex flex-col"
+                    className="product-card group bg-white border border-gray-100 rounded-2xl overflow-hidden flex flex-col min-w-[70%] sm:min-w-[45%] md:min-w-[32%] lg:min-w-[24%] snap-start"
                     data-product-card
                   >
                     <Link

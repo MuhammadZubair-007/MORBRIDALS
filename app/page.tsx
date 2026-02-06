@@ -609,7 +609,7 @@ export default function HomePage() {
       <section className="py-12 sm:py-16 px-5 sm:px-6 lg:px-12 bg-gradient-to-br from-[#e6f7f5] to-white" ref={trendingRef}>
         <div className="container mx-auto">
           <h2 className="text-3xl sm:text-4xl font-bold text-left mb-8 sm:mb-12 text-black font-serif scroll-animate slide-up" style={{ animationDelay: '0.1s' }}>Trending Now</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8" ref={trendingContainerRef}>
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8" ref={trendingContainerRef}>
             {trendingProducts.length === 0 ? (
               // Fallback to hardcoded products if no products in database
               [
@@ -640,7 +640,7 @@ export default function HomePage() {
               ].map((product) => (
                 <div key={product._id} className="product-card bg-white border border-gray-100 rounded-2xl overflow-hidden flex flex-col">
                   <Link href={`/category`}>
-                    <div className="relative h-72 sm:h-80 md:h-96 overflow-hidden">
+                    <div className="relative h-56 sm:h-72 md:h-80 lg:h-96 overflow-hidden">
                       <Image
                         src={product.mainImage || "/placeholder.svg"}
                         alt={product.name}
@@ -692,7 +692,7 @@ export default function HomePage() {
                 return (
                   <div key={product._id} className="product-card bg-white border border-gray-100 rounded-2xl overflow-hidden flex flex-col" data-product-card>
                     <Link href={`/product?id=${productLinkId}`}>
-                      <div className="relative h-72 sm:h-80 md:h-96 overflow-hidden">
+                      <div className="relative h-56 sm:h-72 md:h-80 lg:h-96 overflow-hidden">
                         <Image
                           src={productImage}
                           alt={product.name}

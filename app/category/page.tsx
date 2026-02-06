@@ -341,7 +341,7 @@ export default function CategoryPage() {
               </select>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" ref={productsContainerRef}>
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-8" ref={productsContainerRef}>
               {loading ? (
                 <p className="col-span-full text-center text-gray-600">Loading products...</p>
               ) : filteredProducts.length === 0 ? (
@@ -361,7 +361,7 @@ export default function CategoryPage() {
                     >
                       <Link
                         href={`/product?id=${product._id}`}
-                        className="relative h-80 overflow-hidden block"
+                        className="relative h-56 sm:h-72 md:h-80 overflow-hidden block"
                         data-product-image
                       >
                         <Image
