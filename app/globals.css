@@ -252,6 +252,24 @@ img,
   background: #b45309;
 }
 
+/* Hide scrollbar but keep scroll */
+.hide-scrollbar {
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar but keep scroll */
+.hide-scrollbar {
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 /* Image Hover Effects */
 .group:hover img {
   transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);

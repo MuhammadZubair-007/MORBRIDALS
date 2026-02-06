@@ -189,8 +189,12 @@ export function ProductPageContent() {
   const scrollRelated = (direction: "left" | "right") => {
     const container = relatedScrollRef.current
     if (!container) return
-    const amount = Math.round(container.clientWidth * 0.8)
-    container.scrollBy({ left: direction === "left" ? -amount : amount, behavior: "smooth" })
+    const firstCard = container.querySelector("[data-product-card]") as HTMLElement | null
+    const cardWidth = firstCard?.getBoundingClientRect().width ?? 0
+    const styles = window.getComputedStyle(container)
+    const gap = Number.parseFloat(styles.columnGap || styles.gap || "0") || 0
+    const step = cardWidth > 0 ? cardWidth + gap : Math.round(container.clientWidth * 0.8)
+    container.scrollBy({ left: direction === "left" ? -step : step, behavior: "smooth" })
   }
 
   // Demo reviews data
@@ -792,7 +796,7 @@ export function ProductPageContent() {
               </div>
 
               {/* Status */}
-              <div className="border-t pt-8 pb-8">
+              <div className="pt-8 pb-8">
                 <div className="flex items-center gap-2 mb-4">
                   <span className={`inline-block px-4 py-2 rounded-lg font-semibold ${
                     product.inStock ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
@@ -914,12 +918,6 @@ export function ProductPageContent() {
           </div>
         ) : null}
 
-        {/* Product Information Section */}
-        {product && (
-          <div className="mt-16 border-t pt-8">
-          </div>
-        )}
-
         {/* All Products */}
         {relatedProducts.length > 0 && (
           <div className={`${product ? "mt-16" : ""} relative`} ref={relatedProductsRef}>
@@ -943,7 +941,7 @@ export function ProductPageContent() {
               </button>
             </div>
             <div
-              className="flex gap-4 sm:gap-6 overflow-x-auto pb-4 scroll-smooth snap-x snap-mandatory"
+              className="flex gap-4 sm:gap-6 overflow-x-auto pb-4 scroll-smooth snap-x snap-proximity hide-scrollbar"
               ref={(el) => {
                 relatedScrollRef.current = el
                 relatedProductsContainerRef.current = el as HTMLElement | null
