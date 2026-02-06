@@ -201,7 +201,7 @@ export default function WishlistPage() {
             <h2 className="text-2xl font-semibold text-gray-600 mb-4">Your wishlist is empty</h2>
             <p className="text-gray-500 mb-6">Add products by clicking the heart icon!</p>
             <Link
-              href="/product"
+              href="/products"
               className="inline-block bg-amber-600 text-white px-8 py-3 rounded-lg hover:bg-amber-700 transition-colors duration-300"
             >
               Browse Products
