@@ -2,6 +2,8 @@
 import SiteHeader from "@/components/site-header"
 import { ProductPageContent } from "./product-page-content"
 
+export const dynamic = "force-dynamic"
+
 function ProductPageFallback() {
   return (
     <div className="min-h-screen bg-white">
