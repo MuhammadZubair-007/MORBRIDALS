@@ -177,6 +177,7 @@ export function ProductPageContent() {
   const [showShoppingBag, setShowShoppingBag] = useState(false)
   const [cartItems, setCartItems] = useState<any[]>([])
   const wheelTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const relatedScrollRef = useRef<HTMLDivElement | null>(null)
 
   // Scroll animation refs
   const productDetailsRef = useScrollAnimation({ delay: 0, threshold: 0.1 })
@@ -184,6 +185,13 @@ export function ProductPageContent() {
   const relatedProductsContainerRef = useStaggeredScrollAnimation(100, { delay: 60 })
   const trustBadgesRef = useScrollAnimation({ delay: 0, threshold: 0.15 })
   const descriptionSectionsRef = useStaggeredScrollAnimation(3, { delay: 100 })
+
+  const scrollRelated = (direction: "left" | "right") => {
+    const container = relatedScrollRef.current
+    if (!container) return
+    const amount = Math.round(container.clientWidth * 0.8)
+    container.scrollBy({ left: direction === "left" ? -amount : amount, behavior: "smooth" })
+  }
 
   // Demo reviews data
   const demoReviews: Review[] = [
@@ -914,11 +922,33 @@ export function ProductPageContent() {
 
         {/* All Products */}
         {relatedProducts.length > 0 && (
-          <div className={`${product ? "mt-16" : ""}`} ref={relatedProductsRef}>
+          <div className={`${product ? "mt-16" : ""} relative`} ref={relatedProductsRef}>
             <h2 className="text-3xl font-bold mb-8 scroll-animate slide-up">Related Products</h2>
+            <div className="absolute left-2 right-2 inset-y-0 items-center justify-between pointer-events-none flex z-20">
+              <button
+                type="button"
+                onClick={() => scrollRelated("left")}
+                className="pointer-events-auto bg-white/90 hover:bg-white rounded-full w-12 h-12 flex items-center justify-center shadow-lg transition-all duration-300"
+                aria-label="Scroll related products left"
+              >
+                <i className="fas fa-chevron-left text-xl"></i>
+              </button>
+              <button
+                type="button"
+                onClick={() => scrollRelated("right")}
+                className="pointer-events-auto bg-white/90 hover:bg-white rounded-full w-12 h-12 flex items-center justify-center shadow-lg transition-all duration-300"
+                aria-label="Scroll related products right"
+              >
+                <i className="fas fa-chevron-right text-xl"></i>
+              </button>
+            </div>
             <div
               className="flex gap-4 sm:gap-6 overflow-x-auto pb-4 scroll-smooth snap-x snap-mandatory"
-              ref={relatedProductsContainerRef}
+              ref={(el) => {
+                relatedScrollRef.current = el
+                relatedProductsContainerRef.current = el as HTMLElement | null
+              }}
+              data-related-scroll
             >
               {relatedProducts.map((item) => {
                 const rating = Math.max(0, Math.min(5, item.rating ?? 0))
