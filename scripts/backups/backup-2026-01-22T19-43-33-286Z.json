@@ -1,0 +1,319 @@
+{
+  "createdAt": "2026-01-22T19:43:33.551Z",
+  "categories": [
+    {
+      "_id": "6963c5b865ff3ee4abb5a5e6",
+      "name": "Formal",
+      "slug": "formal",
+      "createdAt": "2026-01-11T15:46:00.888Z",
+      "updatedAt": "2026-01-11T15:46:00.888Z"
+    },
+    {
+      "_id": "6963c5b865ff3ee4abb5a5e3",
+      "name": "Unstitched",
+      "slug": "unstitched",
+      "createdAt": "2026-01-11T15:46:00.888Z",
+      "updatedAt": "2026-01-11T15:46:00.888Z"
+    },
+    {
+      "_id": "6963c5b865ff3ee4abb5a5e5",
+      "name": "Casual",
+      "slug": "casual",
+      "createdAt": "2026-01-11T15:46:00.888Z",
+      "updatedAt": "2026-01-11T15:46:00.888Z"
+    },
+    {
+      "_id": "6963c5b865ff3ee4abb5a5e7",
+      "name": "Bridal",
+      "slug": "bridal",
+      "createdAt": "2026-01-11T15:46:00.888Z",
+      "updatedAt": "2026-01-11T15:46:00.888Z"
+    },
+    {
+      "_id": "6963c5b865ff3ee4abb5a5e4",
+      "name": "Stitched",
+      "slug": "stitched",
+      "createdAt": "2026-01-11T15:46:00.888Z",
+      "updatedAt": "2026-01-11T15:46:00.888Z"
+    }
+  ],
+  "products": [
+    {
+      "_id": "6963d6a7a0f093e193ac8928",
+      "name": "Bridal dress",
+      "description": "beautiful bridal ",
+      "price": 9000,
+      "category": "Bridal",
+      "images": [
+        "/uploads/1768150695664-whatsapp-image-2026-01-08-at-9.45.17-pm-(1).jpeg"
+      ],
+      "sizes": [],
+      "colors": [],
+      "inStock": true,
+      "featured": false,
+      "sku": null,
+      "createdAt": "2026-01-11T16:58:15.781Z",
+      "updatedAt": "2026-01-11T16:58:15.781Z"
+    },
+    {
+      "_id": "6963d81ba0f093e193ac8929",
+      "name": "FORMAL DRESS",
+      "description": "BEAUTIFUL FORMAL EAR",
+      "price": 4500,
+      "category": "Formal",
+      "images": [
+        "/uploads/1768151067114-formal.png"
+      ],
+      "sizes": [],
+      "colors": [],
+      "inStock": true,
+      "featured": false,
+      "sku": null,
+      "createdAt": "2026-01-11T17:04:27.177Z",
+      "updatedAt": "2026-01-11T17:04:27.177Z"
+    },
+    {
+      "_id": "6963d859a0f093e193ac892a",
+      "name": "FORMAL DRESS ",
+      "description": "BEAUTIFUL FORMAL DRESS",
+      "price": 4300,
+      "category": "Formal",
+      "images": [
+        "/uploads/1768151129199-formal-2.png"
+      ],
+      "sizes": [],
+      "colors": [],
+      "inStock": true,
+      "featured": false,
+      "sku": null,
+      "createdAt": "2026-01-11T17:05:29.266Z",
+      "updatedAt": "2026-01-11T17:05:29.266Z"
+    },
+    {
+      "_id": "6963d87ea0f093e193ac892b",
+      "name": "STITCHED",
+      "description": "STICHED DRESS",
+      "price": 3300,
+      "category": "Stitched",
+      "images": [
+        "/uploads/1768151166896-stitched-2.jpg"
+      ],
+      "sizes": [],
+      "colors": [],
+      "inStock": true,
+      "featured": false,
+      "sku": null,
+      "createdAt": "2026-01-11T17:06:06.915Z",
+      "updatedAt": "2026-01-11T17:06:06.915Z"
+    },
+    {
+      "_id": "6963d89da0f093e193ac892c",
+      "name": "STITCHED",
+      "description": "NICE STITCHED DRESS ",
+      "price": 3200,
+      "category": "Stitched",
+      "images": [
+        "/uploads/1768151197738-stitched.png"
+      ],
+      "sizes": [],
+      "colors": [],
+      "inStock": true,
+      "featured": false,
+      "sku": null,
+      "createdAt": "2026-01-11T17:06:37.803Z",
+      "updatedAt": "2026-01-11T17:06:37.803Z"
+    },
+    {
+      "_id": "6963d8c4a0f093e193ac892d",
+      "name": "UNSTITCHED",
+      "description": "UNSTITCHES COMFORT WEAR",
+      "price": 2000,
+      "category": "Unstitched",
+      "images": [
+        "/uploads/1768151236168-unstiched-2.png"
+      ],
+      "sizes": [],
+      "colors": [],
+      "inStock": true,
+      "featured": false,
+      "sku": null,
+      "createdAt": "2026-01-11T17:07:16.232Z",
+      "updatedAt": "2026-01-11T17:07:16.232Z"
+    },
+    {
+      "_id": "6963d911a0f093e193ac892e",
+      "name": "UNSTITCHED",
+      "description": "NORMAL UNSTITCHED NORMAL WEAR",
+      "price": 3000,
+      "category": "Unstitched",
+      "images": [
+        "/uploads/1768151313482-unstiched.jpg"
+      ],
+      "sizes": [],
+      "colors": [],
+      "inStock": true,
+      "featured": false,
+      "sku": null,
+      "createdAt": "2026-01-11T17:08:33.503Z",
+      "updatedAt": "2026-01-11T17:08:33.503Z"
+    },
+    {
+      "_id": "6963d93aa0f093e193ac892f",
+      "name": "CLUTCHE",
+      "description": "BEAUTIFUL",
+      "price": 5000,
+      "category": "Clutches & Jewelry",
+      "images": [
+        "/uploads/1768151354077-img-20250926-wa0069.jpg"
+      ],
+      "sizes": [],
+      "colors": [],
+      "inStock": true,
+      "featured": false,
+      "sku": null,
+      "createdAt": "2026-01-11T17:09:14.098Z",
+      "updatedAt": "2026-01-11T17:09:14.098Z"
+    },
+    {
+      "_id": "6963d94fa0f093e193ac8930",
+      "name": "CLUTCHE",
+      "description": "BEST ",
+      "price": 6000,
+      "category": "Clutches & Jewelry",
+      "images": [
+        "/uploads/1768151375931-clutches.jpeg"
+      ],
+      "sizes": [],
+      "colors": [],
+      "inStock": true,
+      "featured": false,
+      "sku": null,
+      "createdAt": "2026-01-11T17:09:35.952Z",
+      "updatedAt": "2026-01-11T17:09:35.952Z"
+    },
+    {
+      "_id": "6963d968a0f093e193ac8931",
+      "name": "Bridal dress",
+      "description": "BEAUTIFUL BRIDAL DRESS",
+      "price": 12000,
+      "category": "Bridal",
+      "images": [
+        "/uploads/1768151400742-bridal.jpeg"
+      ],
+      "sizes": [],
+      "colors": [],
+      "inStock": true,
+      "featured": false,
+      "sku": null,
+      "createdAt": "2026-01-11T17:10:00.810Z",
+      "updatedAt": "2026-01-11T17:10:00.810Z"
+    },
+    {
+      "_id": "6963d9b2a0f093e193ac8932",
+      "name": "CASUAL",
+      "description": "CASUAL WEAR",
+      "price": 5500,
+      "category": "Casual",
+      "images": [
+        "/uploads/1768151474878-casual.png"
+      ],
+      "sizes": [],
+      "colors": [],
+      "inStock": true,
+      "featured": false,
+      "sku": null,
+      "createdAt": "2026-01-11T17:11:14.957Z",
+      "updatedAt": "2026-01-11T17:11:14.957Z"
+    },
+    {
+      "_id": "6963d9c5a0f093e193ac8933",
+      "name": "CASUAL",
+      "description": "NORMAL",
+      "price": 5700,
+      "category": "Casual",
+      "images": [
+        "/uploads/1768151493133-casual-2.jpg"
+      ],
+      "sizes": [],
+      "colors": [],
+      "inStock": true,
+      "featured": false,
+      "sku": null,
+      "createdAt": "2026-01-11T17:11:33.152Z",
+      "updatedAt": "2026-01-11T17:11:33.152Z"
+    },
+    {
+      "_id": "6963df4a31b3aabf5765e6e6",
+      "name": "Bridal",
+      "description": "bridal wear",
+      "price": 15000,
+      "category": "Bridal",
+      "images": [
+        "/uploads/1768152906511-slide1.jpg"
+      ],
+      "sizes": [],
+      "colors": [],
+      "inStock": true,
+      "featured": false,
+      "sku": null,
+      "createdAt": "2026-01-11T17:35:06.537Z",
+      "updatedAt": "2026-01-11T17:35:06.537Z"
+    },
+    {
+      "_id": "6963e91931b3aabf5765e6e7",
+      "name": "FORMAL DRESS",
+      "description": "formal wear",
+      "price": 5900,
+      "category": "Formal",
+      "images": [
+        "/uploads/1768155417298-formal-3.jpeg"
+      ],
+      "sizes": [],
+      "colors": [],
+      "inStock": true,
+      "featured": false,
+      "sku": null,
+      "createdAt": "2026-01-11T18:16:57.316Z",
+      "updatedAt": "2026-01-11T18:16:57.316Z"
+    }
+  ],
+  "users": [
+    {
+      "_id": "6963da37a0f093e193ac8934",
+      "name": "Muhammad Zubair",
+      "email": "zubair@morbridals.com",
+      "password": "$2a$12$ZH9tLJJhHX91tIMdVSznz.9bfdgV2xOfd9gYlvhbem/fBU3B8PQja",
+      "role": "user",
+      "createdAt": "2026-01-11T17:13:27.700Z",
+      "updatedAt": "2026-01-11T17:13:27.700Z"
+    },
+    {
+      "_id": "6963dafda0f093e193ac8935",
+      "name": "Saim rana",
+      "email": "ranasaim@morbridals.com",
+      "password": "$2a$12$2xbqmrl4EOsYELud8zVnLeCYPP3/gGuH2Ma2LnmwiDqtzigU.Vpr2",
+      "role": "user",
+      "createdAt": "2026-01-11T17:16:45.449Z",
+      "updatedAt": "2026-01-11T17:16:45.449Z"
+    },
+    {
+      "_id": "6963db20a0f093e193ac8936",
+      "name": "saim",
+      "email": "saim@gmail.com",
+      "password": "$2a$12$Q2k2V.53/bYxs67v0ezceOC6lPbE.Q4GErHzIUvPKGpY2vDwhD0Na",
+      "role": "user",
+      "createdAt": "2026-01-11T17:17:20.781Z",
+      "updatedAt": "2026-01-11T17:17:20.781Z"
+    },
+    {
+      "_id": "6963de5aace4b859501f3147",
+      "name": "Admin",
+      "email": "admin@morbridals.com",
+      "password": "$2a$12$qsKt7U3/5M77qadzp6keIO5QgK.SvVplVD8Ruj7PNWcQcAP.4kUF2",
+      "role": "admin",
+      "createdAt": "2026-01-11T17:31:06.419Z",
+      "updatedAt": "2026-01-11T17:31:06.419Z"
+    }
+  ],
+  "orders": []
+}
