@@ -37,7 +37,7 @@ export default function ShoppingBagSidebar({
       <div className="fixed inset-0 z-40" onClick={onClose} />
 
       {/* Sidebar */}
-      <div className="fixed right-0 top-3 h-[94vh] w-[92vw] max-w-md bg-white shadow-2xl z-50 flex flex-col overflow-hidden sm:top-0 sm:h-screen sm:w-full">
+      <div className="fixed right-0 top-0 h-screen w-[92vw] max-w-md bg-white shadow-2xl z-50 flex flex-col overflow-hidden sm:w-full">
         {/* Header */}
         <div className="flex justify-between items-center p-6 border-b">
           <h2 className="text-2xl font-bold">SHOPPING BAG</h2>
@@ -51,7 +51,7 @@ export default function ShoppingBagSidebar({
         </div>
 
         {/* Cart Items */}
-        <div className="flex-1 overflow-y-auto p-6 space-y-4">
+        <div className="flex-1 overflow-y-auto p-6 space-y-4 pb-36 sm:pb-6">
           {cartItems.length === 0 ? (
             <div className="text-center py-12">
               <p className="text-gray-500 mb-4">Your shopping bag is empty</p>
@@ -128,7 +128,7 @@ export default function ShoppingBagSidebar({
 
         {/* Subtotal */}
         {cartItems.length > 0 && (
-          <div className="border-t p-6">
+          <div className="border-t p-6 bg-white sm:bg-transparent sm:static sticky bottom-0 shadow-[0_-6px_16px_rgba(0,0,0,0.08)] sm:shadow-none">
             <div className="flex justify-between items-center mb-6">
               <span className="text-lg font-semibold">Subtotal:</span>
               <span className="text-2xl font-bold text-teal-600">
