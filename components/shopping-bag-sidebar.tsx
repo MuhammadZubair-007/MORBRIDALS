@@ -37,7 +37,7 @@ export default function ShoppingBagSidebar({
       <div className="fixed inset-0 z-40" onClick={onClose} />
 
       {/* Sidebar */}
-      <div className="fixed right-0 top-0 h-screen w-full max-w-md bg-white shadow-2xl z-50 flex flex-col overflow-hidden">
+      <div className="fixed right-0 top-3 h-[94vh] w-[92vw] max-w-md bg-white shadow-2xl z-50 flex flex-col overflow-hidden sm:top-0 sm:h-screen sm:w-full">
         {/* Header */}
         <div className="flex justify-between items-center p-6 border-b">
           <h2 className="text-2xl font-bold">SHOPPING BAG</h2>
