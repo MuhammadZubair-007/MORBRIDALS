@@ -111,6 +111,7 @@ export default function HomePage() {
   const [shopCategories, setShopCategories] = useState<any[]>([])
   const [secondHeroSlides, setSecondHeroSlides] = useState<any[]>([])
   const [instagramPosts, setInstagramPosts] = useState<any[]>([])
+  const [wishlistIds, setWishlistIds] = useState<string[]>([])
   const heroTouchStartX = useRef<number | null>(null)
   const heroTouchDeltaX = useRef(0)
   const hero2TouchStartX = useRef<number | null>(null)
@@ -336,6 +337,43 @@ export default function HomePage() {
       window.removeEventListener("cart:updated", onCartUpdated as EventListener)
     }
   }, [])
+
+  // Load wishlist ids from localStorage
+  useEffect(() => {
+    const loadWishlist = () => {
+      if (typeof window === "undefined") return
+      try {
+        const stored = localStorage.getItem("wishlistItems")
+        const items = stored ? JSON.parse(stored) : []
+        const ids = Array.isArray(items) ? items.map((item: any) => item._id) : []
+        setWishlistIds(ids)
+      } catch (err) {
+        setWishlistIds([])
+      }
+    }
+
+    loadWishlist()
+    const onWishlistUpdated = () => loadWishlist()
+    window.addEventListener("wishlist:updated", onWishlistUpdated as EventListener)
+    window.addEventListener("storage", onWishlistUpdated)
+    return () => {
+      window.removeEventListener("wishlist:updated", onWishlistUpdated as EventListener)
+      window.removeEventListener("storage", onWishlistUpdated)
+    }
+  }, [])
+
+  const handleWishlistToggle = (item: { _id: string; name: string; price: number; mainImage: string }) => {
+    toggleWishlist(item)
+    if (typeof window === "undefined") return
+    try {
+      const stored = localStorage.getItem("wishlistItems")
+      const items = stored ? JSON.parse(stored) : []
+      const ids = Array.isArray(items) ? items.map((entry: any) => entry._id) : []
+      setWishlistIds(ids)
+    } catch (err) {
+      setWishlistIds([])
+    }
+  }
 
 
 
@@ -648,6 +686,21 @@ export default function HomePage() {
                         className="object-cover"
                         data-product-image
                       />
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault()
+                          e.stopPropagation()
+                          handleWishlistToggle({ _id: product._id, name: product.name, price: product.price, mainImage: product.mainImage })
+                        }}
+                        aria-label="Add to wishlist"
+                        className={`absolute top-3 left-3 w-10 h-10 rounded-full shadow flex items-center justify-center transition ${
+                          wishlistIds.includes(product._id)
+                            ? "bg-rose-500 text-white hover:bg-rose-600"
+                            : "bg-white/90 text-amber-600 hover:text-amber-700 hover:bg-white"
+                        }`}
+                      >
+                        <i className={`${wishlistIds.includes(product._id) ? "fas" : "far"} fa-heart text-lg`}></i>
+                      </button>
                     </div>
                     <div className="p-4">
                       <h3 className="font-semibold text-lg mb-2">{product.name}</h3>
@@ -671,11 +724,12 @@ export default function HomePage() {
                       <i className="fas fa-cart-plus"></i>
                     </button>
                     <button
-                      onClick={() => toggleWishlist({ _id: product._id, name: product.name, price: product.price, mainImage: product.mainImage })}
-                      className="px-3 py-2 bg-gray-100 text-gray-600 rounded-lg transition-colors duration-300 hover:bg-gray-200"
+                      onClick={() => handleWishlistToggle({ _id: product._id, name: product.name, price: product.price, mainImage: product.mainImage })}
+                      className="sm:hidden inline-flex items-center justify-center px-4 text-rose-600 hover:text-rose-700"
                       type="button"
+                      aria-label="Add to wishlist"
                     >
-                      <i className={`fas fa-heart ${isInWishlist(product._id) ? "text-red-500" : ""}`}></i>
+                      <i className={`${wishlistIds.includes(product._id) ? "fas" : "far"} fa-heart text-lg`}></i>
                     </button>
                   </div>
                 </div>
@@ -700,6 +754,21 @@ export default function HomePage() {
                           className="object-cover"
                           data-product-image
                         />
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault()
+                            e.stopPropagation()
+                            handleWishlistToggle({ _id: productLinkId, name: product.name, price: product.price, mainImage: productImage })
+                          }}
+                          aria-label="Add to wishlist"
+                          className={`absolute top-3 left-3 w-10 h-10 rounded-full shadow flex items-center justify-center transition ${
+                            wishlistIds.includes(productLinkId)
+                              ? "bg-rose-500 text-white hover:bg-rose-600"
+                              : "bg-white/90 text-amber-600 hover:text-amber-700 hover:bg-white"
+                          }`}
+                        >
+                          <i className={`${wishlistIds.includes(productLinkId) ? "fas" : "far"} fa-heart text-lg`}></i>
+                        </button>
                       </div>
                       <div className="p-4">
                         <h3 className="font-semibold text-lg mb-2">{product.name}</h3>
@@ -737,11 +806,12 @@ export default function HomePage() {
                         <i className="fas fa-cart-plus"></i>
                       </button>
                       <button
-                        onClick={() => toggleWishlist({ _id: productLinkId, name: product.name, price: product.price, mainImage: productImage })}
-                        className="px-3 py-2 bg-gray-100 text-gray-600 rounded-lg transition-colors duration-300 hover:bg-gray-200"
+                        onClick={() => handleWishlistToggle({ _id: productLinkId, name: product.name, price: product.price, mainImage: productImage })}
+                        className="sm:hidden inline-flex items-center justify-center px-4 text-rose-600 hover:text-rose-700"
                         type="button"
+                        aria-label="Add to wishlist"
                       >
-                        <i className={`fas fa-heart ${isInWishlist(productLinkId) ? "text-red-500" : ""}`}></i>
+                        <i className={`${wishlistIds.includes(productLinkId) ? "fas" : "far"} fa-heart text-lg`}></i>
                       </button>
                     </div>
                   </div>
