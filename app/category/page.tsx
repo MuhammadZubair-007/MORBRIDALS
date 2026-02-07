@@ -14,12 +14,22 @@ interface Product {
   name: string
   price: number
   category: string
-  mainImage: string
-  additionalImages?: string[]
-  description?: string
-  inStock?: boolean
-  featured?: boolean
-  rating?: number
+                      <button
+                        onClick={() => {
+                          toggleWishlist({ _id: product._id, name: product.name, price: product.price, mainImage: product.mainImage })
+                        }}
+                        className="sm:hidden inline-flex items-center justify-center px-4 text-rose-600 hover:text-rose-700"
+                        type="button"
+                        aria-label="Add to wishlist"
+                      >
+                        <i className={`${wishlistItems.includes(product._id) ? "fas" : "far"} fa-heart text-lg`}></i>
+                      </button>
+                      <Link
+                        href={`/product?id=${product._id}`}
+                        className="hidden sm:inline-flex items-center justify-center px-4 text-teal-700 font-semibold hover:text-teal-800"
+                      >
+                        Details
+                      </Link>
   reviewsCount?: number
   compareAtPrice?: number
 }

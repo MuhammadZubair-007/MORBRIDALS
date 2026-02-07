@@ -489,7 +489,7 @@ export default function HomePage() {
       <section className="parallax-section py-12 sm:py-16 px-5 sm:px-6 lg:px-12" ref={categoryRef}>
         <div className="container mx-auto">
           <h2 className="text-3xl sm:text-4xl font-bold text-left mb-8 sm:mb-12 text-black font-serif scroll-animate slide-up" style={{ animationDelay: '0s' }}>Shop by Category</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6" ref={trendingContainerRef}>
+              <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6" ref={trendingContainerRef}>
             {shopCategories.map((category, idx) => (
               <Link key={idx} href={`/category?cat=${category.slug}`}>
                 <div className="category-card group relative h-56 sm:h-64 md:h-72 lg:h-80 rounded-[12px] overflow-hidden scroll-animate slide-up" data-scroll-animate>
