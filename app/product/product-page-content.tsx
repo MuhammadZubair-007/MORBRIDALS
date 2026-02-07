@@ -673,7 +673,7 @@ export function ProductPageContent() {
                   src={allImages[selectedImage] || "/placeholder.svg"}
                   alt={product.name}
                   fill
-                  className="object-cover"
+                  className="object-contain"
                 />
               </div>
               {allImages.length > 0 && (
@@ -690,7 +690,7 @@ export function ProductPageContent() {
                         src={image || "/placeholder.svg"}
                         alt={`${product.name} ${index + 1}`}
                         fill
-                        className="object-cover"
+                        className="object-contain"
                       />
                       {index === 0 && (
                         <div className="absolute top-1 left-1 bg-amber-600 text-white text-xs px-2 py-1 rounded">
@@ -957,7 +957,7 @@ export function ProductPageContent() {
                 return (
                   <div
                     key={item._id}
-                    className="product-card group bg-white border border-gray-100 rounded-2xl overflow-hidden flex flex-col min-w-[70%] sm:min-w-[45%] md:min-w-[32%] lg:min-w-[24%] snap-start"
+                    className="product-card group bg-white border border-gray-100 rounded-2xl overflow-hidden flex flex-col min-w-[58%] sm:min-w-[45%] md:min-w-[32%] lg:min-w-[24%] snap-start"
                     data-product-card
                   >
                     <Link
@@ -969,7 +969,7 @@ export function ProductPageContent() {
                         src={item.mainImage || "/placeholder.svg"}
                         alt={item.name}
                         fill
-                        className="object-cover"
+                        className="object-contain"
                       />
 
                       <button
@@ -1046,18 +1046,32 @@ export function ProductPageContent() {
                               setShowShoppingBag(true)
                             }, 300)
                           }}
-                          className="w-full inline-flex items-center justify-center gap-2 bg-teal-600 text-white font-semibold py-3 rounded-lg transition-colors duration-300 hover:bg-teal-700"
+                          className="w-full inline-flex items-center justify-center gap-2 bg-teal-600 text-white font-semibold py-2 sm:py-3 rounded-lg transition-colors duration-300 hover:bg-teal-700"
                           type="button"
                         >
                           <span>Add to Cart</span>
                           <i className="fas fa-cart-plus"></i>
                         </button>
-                        <Link
-                          href={`/product?id=${item._id}`}
-                          className="inline-flex items-center justify-center px-4 text-teal-700 font-semibold hover:text-teal-800"
+                        <button
+                          onClick={() => {
+                            toggleWishlist({ _id: item._id, name: item.name, price: item.price, mainImage: item.mainImage })
+                          }}
+                          className="sm:hidden inline-flex items-center justify-center px-4 text-rose-600 hover:text-rose-700"
+                          type="button"
+                          aria-label="Add to wishlist"
                         >
-                          Details
-                        </Link>
+                          <i className={`${wishlistItems.includes(item._id) ? "fas" : "far"} fa-heart text-lg`}></i>
+                        </button>
+                        <button
+                          onClick={() => {
+                            toggleWishlist({ _id: item._id, name: item.name, price: item.price, mainImage: item.mainImage })
+                          }}
+                          className="hidden sm:inline-flex items-center justify-center px-4 text-rose-600 hover:text-rose-700"
+                          type="button"
+                          aria-label="Add to wishlist"
+                        >
+                          <i className={`${wishlistItems.includes(item._id) ? "fas" : "far"} fa-heart text-lg`}></i>
+                        </button>
                       </div>
                     </div>
                   </div>

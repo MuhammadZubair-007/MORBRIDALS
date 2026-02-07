@@ -717,11 +717,19 @@ export default function HomePage() {
                         animateToCart(product.mainImage, imgEl)
                         setTimeout(() => setShowShoppingBag(true), 300)
                       }}
-                      className="flex-1 inline-flex items-center justify-center gap-2 bg-teal-600 text-white font-semibold py-2 rounded-lg transition-colors duration-300 hover:bg-teal-700"
+                      className="flex-1 inline-flex items-center justify-center gap-2 bg-teal-600 text-white font-semibold py-2 sm:py-3 rounded-lg transition-colors duration-300 hover:bg-teal-700"
                       type="button"
                     >
                       <span>Add to Cart</span>
                       <i className="fas fa-cart-plus"></i>
+                    </button>
+                    <button
+                      onClick={() => handleWishlistToggle({ _id: product._id, name: product.name, price: product.price, mainImage: product.mainImage })}
+                      className="hidden sm:inline-flex items-center justify-center px-4 text-rose-600 hover:text-rose-700"
+                      type="button"
+                      aria-label="Add to wishlist"
+                    >
+                      <i className={`${wishlistIds.includes(product._id) ? "fas" : "far"} fa-heart text-lg`}></i>
                     </button>
                     <button
                       onClick={() => handleWishlistToggle({ _id: product._id, name: product.name, price: product.price, mainImage: product.mainImage })}
@@ -799,11 +807,19 @@ export default function HomePage() {
                           animateToCart(productImage, imgEl)
                           setTimeout(() => setShowShoppingBag(true), 300)
                         }}
-                        className="flex-1 inline-flex items-center justify-center gap-2 bg-teal-600 text-white font-semibold py-2 rounded-lg transition-colors duration-300 hover:bg-teal-700"
+                        className="flex-1 inline-flex items-center justify-center gap-2 bg-teal-600 text-white font-semibold py-2 sm:py-3 rounded-lg transition-colors duration-300 hover:bg-teal-700"
                         type="button"
                       >
                         <span>Add to Cart</span>
                         <i className="fas fa-cart-plus"></i>
+                      </button>
+                      <button
+                        onClick={() => handleWishlistToggle({ _id: productLinkId, name: product.name, price: product.price, mainImage: productImage })}
+                        className="hidden sm:inline-flex items-center justify-center px-4 text-rose-600 hover:text-rose-700"
+                        type="button"
+                        aria-label="Add to wishlist"
+                      >
+                        <i className={`${wishlistIds.includes(productLinkId) ? "fas" : "far"} fa-heart text-lg`}></i>
                       </button>
                       <button
                         onClick={() => handleWishlistToggle({ _id: productLinkId, name: product.name, price: product.price, mainImage: productImage })}
@@ -834,7 +850,7 @@ export default function HomePage() {
                   src={img || "/placeholder.svg"}
                   alt={`Instagram ${idx + 1}`}
                   fill
-                  className="object-cover"
+                          className="object-cover"
                 />
                 <div className="absolute inset-0 bg-black/0 hover:bg-black/40 transition-all duration-500 flex items-center justify-center">
                   <div className="w-16 h-16 bg-white/0 hover:bg-white/20 rounded-full flex items-center justify-center transition-all duration-500 border-2 border-white/0 hover:border-white/80">

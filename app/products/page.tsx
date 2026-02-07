@@ -330,7 +330,7 @@ export default function ProductsPage() {
                             setShowShoppingBag(true)
                           }, 300)
                         }}
-                        className="w-full inline-flex items-center justify-center gap-2 bg-teal-600 text-white font-semibold py-3 rounded-lg transition hover:bg-teal-700"
+                        className="w-full inline-flex items-center justify-center gap-2 bg-teal-600 text-white font-semibold py-2 sm:py-3 rounded-lg transition-colors duration-300 hover:bg-teal-700"
                         type="button"
                       >
                         <span>Add to Cart</span>
@@ -346,12 +346,16 @@ export default function ProductsPage() {
                       >
                         <i className={`${wishlistItems.includes(product._id) ? "fas" : "far"} fa-heart text-lg`}></i>
                       </button>
-                      <Link
-                        href={`/product?id=${product._id}`}
-                        className="hidden sm:inline-flex items-center justify-center px-4 text-teal-700 font-semibold hover:text-teal-800"
+                      <button
+                        onClick={() => {
+                          toggleWishlist({ _id: product._id, name: product.name, price: product.price, mainImage: product.mainImage })
+                        }}
+                        className="hidden sm:inline-flex items-center justify-center px-4 text-rose-600 hover:text-rose-700"
+                        type="button"
+                        aria-label="Add to wishlist"
                       >
-                        Details
-                      </Link>
+                        <i className={`${wishlistItems.includes(product._id) ? "fas" : "far"} fa-heart text-lg`}></i>
+                      </button>
                     </div>
                   </div>
                 </div>
