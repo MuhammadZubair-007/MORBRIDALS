@@ -242,10 +242,10 @@ export default function WishlistPage() {
                   <div className="mt-auto flex gap-2">
                     <button
                       onClick={() => addToCart(item)}
-                      className="flex-1 inline-flex items-center justify-center gap-2 bg-teal-600 text-white font-semibold py-2 sm:py-3 rounded-lg transition-colors duration-300 hover:bg-teal-700"
+                      className="flex-1 inline-flex items-center justify-center gap-1 sm:gap-2 bg-teal-600 text-white font-semibold py-2 sm:py-3 rounded-lg transition-colors duration-300 hover:bg-teal-700"
                     >
-                      <span>Add to Cart</span>
-                      <i className="fas fa-cart-plus"></i>
+                      <span className="text-sm sm:text-base whitespace-nowrap">Add to Cart</span>
+                      <i className="fas fa-cart-plus hidden sm:inline"></i>
                     </button>
                     <button
                       onClick={() => removeFromWishlist(item._id)}
